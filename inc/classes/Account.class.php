@@ -93,7 +93,7 @@ class Account {
     }
 
     function setMerchantID(int $value) {
-        $this->password = $value;
+        $this->merchant_id = $value;
     }
 
     function verifyPassword(string $input) {
