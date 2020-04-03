@@ -8,12 +8,13 @@ CREATE TABLE IF NOT EXISTS merchants (
 
     global_discount FLOAT(3, 3) DEFAULT NULL,
 
-    shipping_country TINYTEXT(3) NOT NULL
+    shipping_country TINYTEXT(3) NOT NULL COMMENT "Country Codes (ISO 3166 Alpha-3)"
 )
 
 CREATE TABLE IF NOT EXISTS products (
     id INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
     upc INT(12) ZEROFILL DEFAULT NULL UNIQUE KEY,
+
     merchant_id INT NOT NULL,
 
     name TEXT NOT NULL,
@@ -51,31 +52,21 @@ CREATE TABLE IF NOT EXISTS accounts (
 
     name_full VARCHAR(129) GENERATED ALWAYS AS (CONCAT(name_first, ' ', name_last)),
 
-    shipping_address1 VARCHAR(128),
-    shipping_address2 VARCHAR(128),
-    shipping_city VARCHAR(32),
-    shipping_region VARCHAR(32),
-    shipping_postal VARCHAR(20),
-    shipping_country VARCHAR(32),
+    addressing JSON COMMENT "JSON Object with billing and shipping address(es)",
 
-    merchant_account BOOLEAN DEFAULT 0,
-    merchant_id INT UNSIGNED
+    merchant_account BOOLEAN DEFAULT 0 COMMENT "Whether or not this account is a merchant account",
+    merchant_id INT UNSIGNED,
+
+    FOREIGN KEY (merchant_id) REFERENCES merchants(id)
 )
 
 CREATE TABLE IF NOT EXISTS orders (
     id INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
 
-    product_id INT UNSIGNED NOT NULL,
-    purchaser_id INT UNSIGNED NOT NULL,
+    account_id INT UNSIGNED NOT NULL,
 
-    products_ordered JSON NOT NULL,
+    products_ordered JSON NOT NULL COMMENT "JSON Object with products ordered",
+    addressing JSON NOT NULL COMMENT "JSON Object with billing and shipping address(es)",
 
-    shipping_tracking VARCHAR,
-
-    shipping_address1 VARCHAR(128),
-    shipping_address2 VARCHAR(128),
-    shipping_city VARCHAR(32),
-    shipping_region VARCHAR(32),
-    shipping_postal VARCHAR(20),
-    shipping_country VARCHAR(32)
+    FOREIGN KEY (account_id) REFERENCES accounts(id)
 )
