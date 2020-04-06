@@ -19,10 +19,10 @@ class Page
 
   <title>Shop Homepage - Start Bootstrap Template</title>
   <!-- Bootstrap core CSS -->
-  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="inc/html/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
   <!-- Custom styles for this template -->
-  <link href="css/shop-homepage.css" rel="stylesheet">
+  <link href="inc/html/css/shop-homepage.css" rel="stylesheet">
 </head>
 
 <body>
@@ -220,8 +220,8 @@ class Page
   </footer>
 
   <!-- Bootstrap core JavaScript -->
-  <script src="vendor/jquery/jquery.min.js"></script>
-  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="inc/html/vendor/jquery/jquery.min.js"></script>
+  <script src="inc/html/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
 </body>
 
