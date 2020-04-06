@@ -1,6 +1,8 @@
 <?php
 
-class CustomerMapper    {
+require_once("inc/exceptions.inc.php");
+
+class AccountMapper {
 
     private static $db;
 
