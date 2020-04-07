@@ -8,28 +8,30 @@ require_once("inc/Controller/AccountController.php");
 
 require_once("inc/Utility/Page.class.php");
 //Initialize the DAOs, which controls CRUD operations in Database
-AccountDAO::initialize();
+AccountMapper::initialize();
 
 
-//Get data from webService
+//Get data from Currency WebService
 Page::$currencyRates = array();
 foreach(CURRENCIES as $curr){
-    WebServiceExchangeRates::$currency = $curr;
-    Page::$currencyRates[$curr] = WebServiceExchangeRates::getExchangeRate();
+    CurrencyWebService::$currency = $curr;
+    //Rates to be used on Page, Will Be store on $currencyRates[] by $curr key.
+    Page::$currencyRates[$curr] = CurrencyWebService::getExchangeRate();
+    
 }
 
 
 //If there was an action, write it to $action
-//the default action is ACTION_LIST_ITEMS
+//the default action is ACTION_LIST_PRODUCTS
 if (isset($_POST["action"])){
     $action = $_POST["action"];
 } else if (isset($_GET["action"])) {
     $action = $_GET["action"];
 } else {
-    $action = ACTION_LIST_ITEMS;
+    $action = ACTION_LIST_PRODUCTS;
 }
 
-//If there was an account Id, write it to $cstId
+//If there was an account Id (user Logged in), write it to $accId
 if (isset($_POST["accId"])){
     $accId = $_POST["accId"];
 } else if (isset($_GET["accId"])) {
@@ -52,8 +54,8 @@ Page::header();
 switch ($action){
     //do the appropriate function for the respective action
         
-    case ACTION_DELETE_CUSTOMER;
-        //Delete the customer
+    case ACTION_DELETE_ACCOUNT;
+        //Delete the account
         if (deleteAccount()){
             $lastActionStatus = LAST_ACTION_OK;
         } else {
@@ -85,9 +87,9 @@ switch ($action){
         } else {
             Page::showFormErros();
         }
-        $action = ACTION_LIST_ITEMS;
+        $action = ACTION_LIST_PRODUCTS;
         
-        listItems();
+        listProducts();
         break;
 
     case ACTION_UPDATE_ACCOUNT;
@@ -101,8 +103,8 @@ switch ($action){
             }
             //Show last action status
             Page::showLastActionStatus($lastActionStatus);
-            $action = ACTION_LIST_ITEMS;
-            listItems();
+            $action = ACTION_LIST_PRODUCTS;
+            listProducts();
             
         } else {
            
@@ -127,7 +129,7 @@ switch ($action){
         break; 
         
     
-    case ACTION_LIST_ITEMS;
+    case ACTION_LIST_PRODUCTS;
         default: // List All Items on the Main Page.
         break;
     }

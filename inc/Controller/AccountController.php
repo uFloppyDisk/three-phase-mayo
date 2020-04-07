@@ -1,7 +1,8 @@
 <?php
 
 /*
-    This controller will keep the actions: delete, edit, form, insert, list and update for Accounts
+    This controller will keep the actions:
+    delete, edit, form, insert, list and update for Accounts
 */
 
 //Delete Account
