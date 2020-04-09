@@ -68,6 +68,8 @@ CREATE TABLE IF NOT EXISTS orders (
     products_ordered JSON NOT NULL, /* JSON Object with products ordered */
     addressing JSON NOT NULL, /* JSON Object with billing and shipping address(es) */
 
+    status ENUM("Completed", "En Route", "Packaging", "Payment Accepted", "Payment Processing", "Payment Rejected", "Cancelled") NOT NULL DEFAULT "Payment Processing",
+
     FOREIGN KEY (account_id) REFERENCES accounts(id)
 );
 
