@@ -11,7 +11,7 @@ class AccountMapper {
     }
 
     // Create an Account
-    static private function _createAccount($username, $email, $password) {
+    static private function _createAccount(string $username, string $email, string $password) {
         $sql = "INSERT INTO accounts
                     (username, email, password)
                 VALUES 
@@ -53,7 +53,7 @@ class AccountMapper {
         return self::$db->rowCount();
     }
 
-    static function makeAccount($username, $email, $password) {
+    static function makeAccount(string $username, string $email, string $password) {
         if (!self::getAccountByEmail($email)) {
             throw DatabaseValueException::valueNotUnique($email);
         }
