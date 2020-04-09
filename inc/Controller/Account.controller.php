@@ -8,7 +8,7 @@
 //Delete Account
 function deleteAccount(){
     //Delete Account
-    return AccountDAO::deleteAccount($_GET["accId"]);
+    return AccountMapper::deleteAccount($_GET["accId"]);
 }
 
 
@@ -18,7 +18,7 @@ function newAccount(){
     $account = new Account();
     
     //Show New Account form
-    Page::showCreateNewAccountForm($account, ACTION_NEW_ACCOUNT);
+    Page::showEditAccountForm($account, ACTION_NEW_ACCOUNT);
 }
 
 
@@ -39,7 +39,7 @@ function insertAccount(){
     $email = $account->getEmail(); 
     $password =  $account->getPassword(); 
     //Insert new Account
-    return AccountDAO::makeAccount($username, $email, $password);
+    return AccountMapper::makeAccount($username, $email, $password);
 }
 
 
@@ -88,7 +88,7 @@ function updateAccount(){
     
 
     //Update Account
-    return AccountDAO::updateAccountInfo($account);
+    return AccountMapper::updateAccountInfo($account);
 }
 
 

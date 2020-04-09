@@ -104,21 +104,21 @@ class Page  {
             <tr>
               <td>Password</td>
               <td><input type="text" name="accPassword" id="accPassword" size="50" required="required" 
-                    value="<?php if($action == ACTION_EDIT_ACCOUNT) { echo $account->getEmail(); } ?>"></td>
+                    value="<?php if($action == ACTION_EDIT_ACCOUNT) { echo 'set New Password'; } ?>"></td>
             </tr>		
            
             <tr>
               <td><input type="submit" value="Save"  class="btn btn-primary" ></td>
-              <td><input type="button" value="Cancel"  class="btn btn-primary" onclick=document.location="<?php echo $_SERVER["PHP_SELF"]."?action=".ACTION_LIST_CUSTOMER; ?>"></td>
+              <td><input type="button" value="Cancel"  class="btn btn-primary" onclick=document.location="<?php echo $_SERVER["PHP_SELF"]."?action=".ACTION_LIST_PRODUCTS; ?>"></td>
             </tr>
           </table>
           <input type="hidden" id="action" name="action" value="<?php 
-                  if($action == ACTION_NEW_CUSTOMER) {
-                    echo ACTION_INSERT_CUSTOMER; 
-                  } else if ($action == ACTION_EDIT_CUSTOMER){
-                    echo ACTION_UPDATE_CUSTOMER;
+                  if($action == ACTION_NEW_ACCOUNT) {
+                    echo ACTION_INSERT_ACCOUNT; 
+                  } else if ($action == ACTION_EDIT_ACCOUNT){
+                    echo ACTION_UPDATE_ACCOUNT;
                   } ?>">      
-          <input type="hidden" id="cstId" name="cstId" value="<?php if($action == ACTION_EDIT_CUSTOMER) { echo $customer->getCustomerID(); } ?>">    
+          <input type="hidden" id="accId" name="accId" value="<?php if($action == ACTION_EDIT_ACCOUNT) { echo $account->getID(); } ?>">    
         </fieldset>
       </form>
       </div>
