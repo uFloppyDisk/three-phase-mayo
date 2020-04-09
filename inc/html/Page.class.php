@@ -17,12 +17,12 @@ class Page
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>Shop Homepage - Start Bootstrap Template</title>
+  <title>3PhaseMayo Store</title>
   <!-- Bootstrap core CSS -->
   <link href="inc/html/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
   <!-- Custom styles for this template -->
-  <link href="inc/html/css/shop-homepage.css" rel="stylesheet">
+  <link href="inc/css/shop-homepage.css" rel="stylesheet">
 </head>
 
 <body>
