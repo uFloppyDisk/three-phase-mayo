@@ -58,6 +58,76 @@ class Page  {
    <?php
   }
 
+
+
+  //Display form  Customer
+  static function showEditAccountForm(Account $account, $action){ 
+    //This form is used for updating an existing account 
+    //  and for creating a new one
+      
+      
+      //setup action title
+      if($action == ACTION_EDIT_ACCOUNT) {
+        echo '<p><h3>Edit Account - '.$account->getID().'</h3></p>';
+      } else {
+        echo '<p><h3>Create Account</h3></p>';
+      }
+      ?>
+
+      <form name="formAccount" action="<?php echo $_SERVER["PHP_SELF"]; ?>" method="POST" >
+        <fieldset>
+          <table>
+            <colgroup>
+              <col class="first" />
+              <col class="second" />
+            </colgroup>
+            <tr>
+              <td>First Name</td>
+              <td><input type="text" name="accFName" id="accFName" size="100" required="required" 
+                    value="<?php if($action == ACTION_EDIT_ACCOUNT) { echo $account->getFirstName(); } ?>"></td>
+            </tr>	
+            <tr>
+              <td>Last Name</td>
+              <td><input type="text" name="accLName" id="accLName" size="100" required="required" 
+                    value="<?php if($action == ACTION_EDIT_ACCOUNT) { echo $account->getLastName(); } ?>"></td>
+            </tr>	
+            <tr>
+              <td>Email</td>
+              <td><input type="text" name="accEmail" id="accEmail" size="50" required="required" 
+                    value="<?php if($action == ACTION_EDIT_ACCOUNT) { echo $account->getEmail(); } ?>"></td>
+            </tr>
+            <tr>
+              <td>UserName</td>
+              <td><input type="text" name="accUserName" id="accUserName" size="50" required="required" 
+                    value="<?php if($action == ACTION_EDIT_ACCOUNT) { echo $account->getUsername(); } ?>"></td>
+            </tr>	
+            <tr>
+              <td>Password</td>
+              <td><input type="text" name="accPassword" id="accPassword" size="50" required="required" 
+                    value="<?php if($action == ACTION_EDIT_ACCOUNT) { echo $account->getEmail(); } ?>"></td>
+            </tr>		
+           
+            <tr>
+              <td><input type="submit" value="Save"  class="btn btn-primary" ></td>
+              <td><input type="button" value="Cancel"  class="btn btn-primary" onclick=document.location="<?php echo $_SERVER["PHP_SELF"]."?action=".ACTION_LIST_CUSTOMER; ?>"></td>
+            </tr>
+          </table>
+          <input type="hidden" id="action" name="action" value="<?php 
+                  if($action == ACTION_NEW_CUSTOMER) {
+                    echo ACTION_INSERT_CUSTOMER; 
+                  } else if ($action == ACTION_EDIT_CUSTOMER){
+                    echo ACTION_UPDATE_CUSTOMER;
+                  } ?>">      
+          <input type="hidden" id="cstId" name="cstId" value="<?php if($action == ACTION_EDIT_CUSTOMER) { echo $customer->getCustomerID(); } ?>">    
+        </fieldset>
+      </form>
+      </div>
+    
+    </div>
+   <?php }
+
+
+
 } 
 
 ?>
