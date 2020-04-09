@@ -30,8 +30,8 @@ class Page  {
 
  <?php }
 
-  //Show items only in the Account
-  static function AccountProductList($items, $account){
+  //Show orders in the Account
+  static function ShowAccountOrderList($orders, $account){
 
 
   }
@@ -106,7 +106,11 @@ class Page  {
               <td><input type="text" name="accPassword" id="accPassword" size="50" required="required" 
                     value="<?php if($action == ACTION_EDIT_ACCOUNT) { echo 'set New Password'; } ?>"></td>
             </tr>		
-           
+            <tr>
+              <td>Address</td>
+              <td><input type="text" name="accAddress" id="accAddress" size="50" required="required" 
+                    value="<?php if($action == ACTION_EDIT_ACCOUNT) { echo $account->getAddressing(); } ?>"></td>
+            </tr>
             <tr>
               <td><input type="submit" value="Save"  class="btn btn-primary" ></td>
               <td><input type="button" value="Cancel"  class="btn btn-primary" onclick=document.location="<?php echo $_SERVER["PHP_SELF"]."?action=".ACTION_LIST_PRODUCTS; ?>"></td>

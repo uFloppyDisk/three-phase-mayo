@@ -57,6 +57,7 @@ switch ($action){
     case ACTION_SHOW_lOGIN;
         Page::showLogin();
         break;
+
     case ACTION_DELETE_ACCOUNT;
         //Delete the account
         if (deleteAccount()){
@@ -76,7 +77,7 @@ switch ($action){
         break;
 
     case ACTION_INSERT_ACCOUNT;
-        //Insert new account
+        //Insert new account with whetever was POSTED on the showEditAccountForm
       
         if (empty(Page::$errors)){
             if (insertAccount()){
@@ -92,11 +93,11 @@ switch ($action){
         }
         $action = ACTION_LIST_PRODUCTS;
         
-        listProducts();
+        listAllProducts();
         break;
 
     case ACTION_UPDATE_ACCOUNT;
-        //Update customer
+        //Update account information with whetever was POSTED on the showEditAccountForm
         if (empty(Page::$errors)){
             if (updateAccount()){
                 $lastActionStatus = LAST_ACTION_OK;
@@ -107,7 +108,7 @@ switch ($action){
             //Show last action status
             Page::showLastActionStatus($lastActionStatus);
             $action = ACTION_LIST_PRODUCTS;
-            listProducts();
+            listAllProducts();
             
         } else {
            

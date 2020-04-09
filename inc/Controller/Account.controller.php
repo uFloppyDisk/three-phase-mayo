@@ -28,12 +28,12 @@ function insertAccount(){
     $account = new Account();
 
     //Add data
-    $account->setUsername($_POST["userName"]);
+    $account->setUsername($_POST["accUserName"]);
     $account->setEmail($_POST["accEmail"]);
-    $account->setPassword($_POST["accPass"]);
+    $account->setPassword($_POST["accPassword"]);
     $account->setFirstName($_POST["accFName"]);
     $account->setLastName($_POST["accLName"]);
-    $account->setAddressing($_POST["accAddr"]);
+    $account->setAddressing($_POST["accAddress"]);
   
     $username = $account->getUsername(); 
     $email = $account->getEmail(); 
@@ -52,20 +52,20 @@ function editAccount(){
 
     //Add data
     if(isset($_GET["accId"])){
-        $account->setUsername($_GET["userName"]);
+        $account->setUsername($_GET["accUserName"]);
         $account->setEmail($_GET["accEmail"]);
-        $account->setPassword($_GET["accPass"]);
+        $account->setPassword($_GET["accPassword"]);
         $account->setFirstName($_GET["accFName"]);
         $account->setLastName($_GET["accLName"]);
-        $account->setAddressing($_GET["accAddr"]);
+        $account->setAddressing($_GET["accAddress"]);
   
     } else {
-        $account->setUsername($_POST["userName"]);
+        $account->setUsername($_POST["accUserName"]);
         $account->setEmail($_POST["accEmail"]);
-        $account->setPassword($_POST["accPass"]);
+        $account->setPassword($_POST["accPassword"]);
         $account->setFirstName($_POST["accFName"]);
         $account->setLastName($_POST["accLName"]);
-        $account->setAddressing($_POST["accAddr"]);
+        $account->setAddressing($_POST["accAddress"]);
       
     }
 
@@ -79,12 +79,12 @@ function updateAccount(){
     $account = new Account();
 
     //Add data
-    $account->setUsername($_POST["userName"]);
+    $account->setUsername($_POST["accUserName"]);
     $account->setEmail($_POST["accEmail"]);
-    $account->setPassword($_POST["accPass"]);
+    $account->setPassword($_POST["accPassword"]);
     $account->setFirstName($_POST["accFName"]);
     $account->setLastName($_POST["accLName"]);
-    $account->setAddressing($_POST["accAddr"]);
+    $account->setAddressing($_POST["accAddress"]);
     
 
     //Update Account
