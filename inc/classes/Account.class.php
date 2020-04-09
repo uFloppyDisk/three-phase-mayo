@@ -44,10 +44,12 @@ class Account {
     function getAddressing($type="shipping") {
         $ret = NULL;
 
+        $addressing = json_decode($this->addressing);
+
         if (is_null($type)) {
-            $ret = $this->addressing;
+            $ret = $addressing;
         } else if ($type == "shipping" || $type == "billing") {
-            $ret = $this->addressing[$type];
+            $ret = $addressing->$type;
         } else {
             throw JSONReadException::fieldDoesNotExist($type);
         }
