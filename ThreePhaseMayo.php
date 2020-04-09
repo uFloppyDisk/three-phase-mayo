@@ -54,6 +54,9 @@ Page::header();
 switch ($action){
     //do the appropriate function for the respective action
         
+    case ACTION_SHOW_lOGIN;
+        Page::showLogin();
+        break;
     case ACTION_DELETE_ACCOUNT;
         //Delete the account
         if (deleteAccount()){
@@ -128,9 +131,35 @@ switch ($action){
      
         break; 
         
+    case ACTION_lOGIN_ACCOUNT;
+
+    if ( isset( $_POST['username'] ) && isset( $_POST['password'] ) ) {
+       
+        $authUser = AccountMapper::getAccountByUsername($_POST['username']);
+        //Check the DAO returned an object of type user
+        
+        if ($authUser instanceof Account){ 
+            //Check the password
+            
+            if ($authUser->verifyPassword($_POST['password']))  {
+
+                //Start the session
+                session_start();
+                //Set the user to logged in
+                $_SESSION['username'] = $authUser->getUsername();
+                //Send the user to the Main Page Or Shopping Page.
+                header("Location: ThreePhaseMayo.php");
+            }
+        }   
+    }
+
+        break;
+    
+    
     
     case ACTION_LIST_PRODUCTS;
         default: // List All Items on the Main Page.
+        listAllProducts();
         break;
     }
     

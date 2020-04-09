@@ -19,6 +19,8 @@ define("ACTION_EDIT_ACCOUNT", "EditAccount");
 define("ACTION_DELETE_ACCOUNT", "DeleteAccount");
 define("ACTION_INSERT_ACCOUNT", "InsertAccount");
 define("ACTION_UPDATE_ACCOUNT", "UpdateAccount");
+define("ACTION_lOGIN_ACCOUNT", "LoginAccount");
+define("ACTION_SHOW_lOGIN", "ShowLogin");
 
 // these actions will only be used if we set an admin page
 // to include new products into the database

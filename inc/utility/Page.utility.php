@@ -8,7 +8,39 @@ class Page  {
  
  
 
+  static function showLogin() { ?>
+    
+    
+    <form method="POST" ACTION="<?php echo $_SERVER["PHP_SELF"]; ?>">
+    <H1> Please Signed in: </H1>
+    <div>
 
+     <div>
+     <input  type="TEXT" placeholder="User Name"  name="username">
+     </div>
+
+     <div>
+     <input type="text" placeholder="Password"  name="password">
+     </div>
+
+ </div>
+ <input type="submit" value="Log in">
+ </form>
+ 
+
+ <?php }
+
+  //Show items only in the Account
+  static function AccountProductList($items, $account){
+
+
+  }
+
+  // Show All Items
+  static function  AllProductsList($items){
+
+    
+  }
   //Display msg Status
   static function showLastActionStatus($lastActionStatus){ 
     ?>
