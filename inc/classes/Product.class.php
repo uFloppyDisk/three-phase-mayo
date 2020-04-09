@@ -13,7 +13,7 @@ class Product {
     private $unit_discount;
     private $shipping_method_highest;
 
-    
+
     // Getters
     function getID() {
         return $this->id;
