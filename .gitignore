@@ -1,0 +1,13 @@
+# IDE files
+.mypy_cache/
+.vscode/
+
+# Github files
+README.md
+
+# Ignore test files and folders
+test*
+
+# Mockdata artefacts and python data preparation files
+*.csv
+*.py
