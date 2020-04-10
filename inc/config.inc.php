@@ -7,8 +7,6 @@ define('DB_PASS','');
 
 define('DB_NAME','tpm');
 
-
-
 /* Set of actions: Used to Know whats the User Selects on the WebApp. 
 each action has to be set on a hidden input on any form
 when GET or POST methods are used.
@@ -52,7 +50,5 @@ define("CURRENCIES", array('USD','EUR'));
 
 //log File in case is needed
 define("LOG_FILE", "log/error.log");
-
-
 
 ?>
