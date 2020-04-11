@@ -7,6 +7,8 @@ class Product {
     private $upc;
     private $merchant_id;
     private $name;
+    private $description;
+    private $resources;
     private $units_available;
     private $unit_weight;
     private $unit_price;
@@ -28,6 +30,14 @@ class Product {
 
     function getName() {
         return $this->name;
+    }
+
+    function getDescription() {
+        return $this->description;
+    }
+
+    function getResources() {
+        return $this->resources;
     }
 
     function getUnitsAvailable() {
@@ -61,6 +71,14 @@ class Product {
 
     function setName(string $value) {
         $this->name = $value;
+    }
+
+    function setDescription(string $value) {
+        $this->description = $value;
+    }
+
+    function setResources(string $value) {
+        $this->resources = $value;
     }
 
     function setUnitsAvailable(int $value) {

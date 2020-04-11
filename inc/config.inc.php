@@ -25,7 +25,7 @@ define("ACTION_SHOW_lOGIN", "ShowLogin");
 
 // these actions will only be used if we set an admin page
 // to include new products into the database
-define("ACTION_LIST_PRODUCT", "ListProducts");
+define("ACTION_LIST_PRODUCTS", "ListProducts");
 define("ACTION_DELETE_PRODUCT", "DeleteProduct");
 define("ACTION_INSERT_PRODUCT", "InsertProduct");
 define("ACTION_EDIT_PRODUCT", "EditProduct");

@@ -48,6 +48,9 @@ CREATE TABLE IF NOT EXISTS products (
     merchant_id INT NOT NULL,
 
     name TINYTEXT NOT NULL,
+    description TEXT NOT NULL,
+
+    resources TINYTEXT GENERATED ALWAYS AS (CONCAT("./res/images/", id)),
 
     units_available INT NOT NULL DEFAULT 0,
     unit_weight FLOAT(3, 1),
