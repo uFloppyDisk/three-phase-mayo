@@ -50,7 +50,7 @@ CREATE TABLE IF NOT EXISTS products (
     name TINYTEXT NOT NULL,
     description TEXT NOT NULL,
 
-    resources TINYTEXT GENERATED ALWAYS AS (CONCAT("./res/images/", id)),
+    resources TINYTEXT GENERATED ALWAYS AS (CONCAT("./res/images/", id, "/")) STORED NOT NULL,
 
     units_available INT NOT NULL DEFAULT 0,
     unit_weight FLOAT(3, 1),
