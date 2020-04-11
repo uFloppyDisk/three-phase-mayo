@@ -10,7 +10,7 @@ body
 {
 font-family: "Montserrat", sans-serif;
 background: #f6f5f7;
-background-image: url("../assests/loginpagebackground2.PNG");
+background-image: url("../../res/images/loginpagebackground2.PNG");
 background-repeat: initial;
 display: flex;
 flex-direction: column;
@@ -164,7 +164,7 @@ button.ghost {
 }
 
 .overlay {
-    background-image: url("../assests/loginpagebackground2.PNG");
+    background-image: url("../../res/images/loginpagebackground2.PNG");
     /* background: linear-gradient(to right, #1f41b1, #2b4dbd); */
     opacity: 0.5;
     color: white;
