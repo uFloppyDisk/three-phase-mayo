@@ -2,6 +2,7 @@
 
 class Page
 {
+    
 
     public static $title = "Please set the Title";
     public static $currencyRates = array();
@@ -181,10 +182,13 @@ public static function html_page()
         <!-- <a class="navbar-brand" href="#">Country<img src="./res/images/cexchange.png" /></a> -->
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
-        </button>
+        </button> 
+        
+        <img id='profileimg' src="./res/images/profileimg1.png" alt="Avatar" style="width:200px">
         <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav ml-auto">
             <li class="nav-item active">
+           
                 <a class="nav-link" href="#">Home
                 <span class="sr-only">(current)</span>
                 </a>
@@ -237,8 +241,12 @@ public static function html_page()
             </ol>
             <div class="carousel-inner" role="listbox">
                 <div class="carousel-item active">
-                <img class="d-block img-fluid" src="./res/images/imagenumber1.jpg" alt="First slide">
-                <div class="carousel-caption d-none d-md-block">
+                <?php echo   '<a href="inc/html/Product.class.php">
+               <img class="d-block img-fluid" src="./res/images/imagenumber1.jpg" alt="Second slide">
+                </a>'
+                ;?>
+
+                 <div class="carousel-caption d-none d-md-block">
     <h5>Macbook Pro 15' '</h5>
     <p>Shop this spring event sale on selected Macbook Pro model's</p>
   </div>

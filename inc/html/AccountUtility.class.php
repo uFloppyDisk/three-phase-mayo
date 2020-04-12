@@ -5,7 +5,6 @@
  * Here is the ref: https://www.florin-pop.com/blog/2019/03/double-slider-sign-in-up-form/
  * 
  * */
-
 class AccountUtility
 {
 
@@ -18,6 +17,7 @@ public static function accountPageBody()
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <script src="https://kit.fontawesome.com/0ef31ce130.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 
   <link href="inc/css/accountpage.css" rel="stylesheet">
     <title>Login Page</title>
@@ -69,8 +69,10 @@ signInButton.addEventListener('click', () => {
     <form action="#">
         <h1>Sign in</h1>
         <div class="social-container">
-            <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
-            <a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
+     
+       <!-- <button id="googlesign" type="submit"  >
+    <img src="./res/images/googlebutton.png" alt=""></button> -->
+       <input type="submit"   value="Sign in with Google" class="btn btn-danger">
        
         </div>
         <span>or use your account</span>
