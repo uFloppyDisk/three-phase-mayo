@@ -28,18 +28,19 @@ function insertAccount(){
     $account = new Account();
 
     //Add data
-    $account->setUsername($_POST["userName"]);
-    $account->setEmail($_POST["accEmail"]);
-    $account->setPassword($_POST["accPass"]);
-    $account->setFirstName($_POST["accFName"]);
-    $account->setLastName($_POST["accLName"]);
-    $account->setAddressing($_POST["accAddr"]);
+    $account->setUsername($_POST["username"]);
+    $account->setEmail($_POST["email"]);
+    $account->setPassword($_POST["password"]);
+    
   
     $username = $account->getUsername(); 
     $email = $account->getEmail(); 
     $password =  $account->getPassword(); 
     //Insert new Account
-    return AccountDAO::makeAccount($username, $email, $password);
+    return AccountMapper::makeAccount($username, $email, $password);
+
+    
+  
 }
 
 
@@ -90,6 +91,12 @@ function updateAccount(){
     //Update Account
     return AccountDAO::updateAccountInfo($account);
 }
+
+function showSignInPage(){
+    AccountUtility::accountPageBody();
+}
+
+
 
 
 ?>

@@ -16,17 +16,21 @@ require_once("inc/wrappers/Product.wrapper.php");
 
 require_once("inc/managers/Account.manager.php");
 require_once("inc/managers/CurrencyWebService.manager.php");
+require_once("inc/managers/VerifySignIn.manager.php");
 require_once("inc/managers/PDO.manager.php");
 require_once("inc/managers/Product.manager.php");
 
 require_once("inc/html/Page.class.php");
 require_once("inc/html/AccountUtility.class.php");
-
+require_once("inc/html/PageProduct.class.php");
 
 
 require_once("inc/html/Page.class.php");
 //Initialize the DAOs, which controls CRUD operations in Database
 AccountMapper::initialize();
+ISOCodeMapper::initialize();
+MerchantMapper::initialize();
+OrderMapper::initialize();
 ProductMapper::initialize();
 
 
@@ -69,66 +73,22 @@ Page::$title = "Three Phase Mayo";
 switch ($action){
     //do the appropriate function for the respective action
         
-    case ACTION_SHOW_lOGIN;
-        AccountUtility::accountPageBody();
+    case ACTION_SHOW_SIGNIN;
+        showSignInPage();
+        
         break;
     case ACTION_DELETE_ACCOUNT;
-        //Delete the account
-        if (deleteAccount()){
-            $lastActionStatus = LAST_ACTION_OK;
-        } else {
-            $lastActionStatus = LAST_ACTION_NOK;
-            Page::$errors[] = 'Error deleting customer: '.$accId;
-            Page::$errors[] = 'You can not delete customers with 1 or more orders.';
-        }
-        //Show last action status
-        Page::showLastActionStatus($lastActionStatus);
+      
         break;
 
     case ACTION_EDIT_ACCOUNT;
-        //Edit the account
-        editAccount();
+        
         break;
 
-    case ACTION_INSERT_ACCOUNT;
-        //Insert new account
-      
-        if (empty(Page::$errors)){
-            if (insertAccount()){
-                $lastActionStatus = LAST_ACTION_OK;
-            } else {
-                $lastActionStatus = LAST_ACTION_NOK;
-                Page::$errors[] = 'Error creating new account';
-            }
-            //Show last action status
-            Page::showLastActionStatus($lastActionStatus);
-        } else {
-            Page::showFormErros();
-        }
-        $action = ACTION_LIST_PRODUCTS;
-        
-        listProducts();
-        break;
+
 
     case ACTION_UPDATE_ACCOUNT;
-        //Update customer
-        if (empty(Page::$errors)){
-            if (updateAccount()){
-                $lastActionStatus = LAST_ACTION_OK;
-            } else {
-                $lastActionStatus = LAST_ACTION_NOK;
-                Page::$errors[] = 'Error updating account: '.$accId;
-            }
-            //Show last action status
-            Page::showLastActionStatus($lastActionStatus);
-            $action = ACTION_LIST_PRODUCTS;
-            listProducts();
-            
-        } else {
-           
-            $action = ACTION_EDIT_ACCOUNT;
-            editAccount();
-        }
+      
         break;  
 
 
@@ -146,38 +106,81 @@ switch ($action){
      
         break; 
         
-    case ACTION_lOGIN_ACCOUNT;
-
-    if ( isset( $_POST['username'] ) && isset( $_POST['password'] ) ) {
-       
-        $authUser = AccountMapper::getAccountByUsername($_POST['username']);
-        //Check the DAO returned an object of type user
+    case ACTION_SIGIN_ACCOUNT;
+  
+        if (isset( $_POST['username'] ) && isset( $_POST['password'] ) ) {
+    
+            $authUser = AccountMapper::getAccountByUsername($_POST['username']);
+            //Check the DAO returned an object of type user
         
-        if ($authUser instanceof Account){ 
-            //Check the password
+            if ($authUser instanceof Account){ 
+                //Check the password
+                
+                if ($authUser->verifyPassword($_POST['password']))  {
+                    //Start the session
+                    session_start();
+                    //Set the user to logged in
+                    $_SESSION['username'] = $authUser->getUsername();
+                    //Send the user to the Main Page Or Shopping Page.
+                    $lastActionStatus = LAST_ACTION_OK;
+                    listAllProducts();
+                    
+                } else {
+                    $lastActionStatus = LAST_ACTION_NOK;
+                    Page::showLastActionStatus($lastActionStatus);
+                    showSignInPage();
+                }
+            }  
+            else {
+                $lastActionStatus = LAST_ACTION_NOK;
+                Page::showLastActionStatus($lastActionStatus);
+                showSignInPage();
             
-            if ($authUser->verifyPassword($_POST['password']))  {
-
-                //Start the session
-                session_start();
-                //Set the user to logged in
-                $_SESSION['username'] = $authUser->getUsername();
-                //Send the user to the Main Page Or Shopping Page.
-                header("Location: ThreePhaseMayo.php");
-            }
-        }   
-    }
+            } 
+        }
+    
 
         break;
     
     
-    
-    case ACTION_LIST_PRODUCTS:
-        Page::html_page();
 
-    default: // List All Items on the Main Page.
-        Page::html_page();
+    case ACTION_SIGN_OUT;
+            session_start();
+            session_destroy();
+            header("Location: index.php");
     break;
+        
+    case ACTION_SIGNUP_ACCOUNT;
+        if (isset($_POST['username']) && isset($_POST['password']) && isset($_POST['email'])) {
+            //Insert new account
+                // if (insertAccount()){
+                //     $lastActionStatus = LAST_ACTION_OK;
+                                   
+                // } else {
+                //     $lastActionStatus = LAST_ACTION_NOK;
+        
+                // }
+                // //Show last action status
+                // Page::showLastActionStatus($lastActionStatus);
+           
+            $action = ACTION_SIGIN_ACCOUNT;
+            
+            VerifySignIn::verifyLogin();
+            listAllProducts();
+        }
+        break;
+    case ACTION_SHOW_SELECTED_PRODUCT;
+        // show product page in which item can be added to the order.
+        if (isset($_GET['prodId'])) {
+            $prodId = $_GET['prodId'];
+            PageProduct::header();
+            PageProduct::product_html($prodId);
+        }
+    break;
+    case ACTION_LIST_PRODUCTS;
+        default: // List All Items on the Main Page.
+            listAllProducts();
+        break;
     }
     
 $lastActionStatus = NO_LAST_ACTION;
@@ -186,5 +189,5 @@ $lastActionStatus = NO_LAST_ACTION;
 //Page::footer();
 
 
- //Page::html_page(); call this method after user get successfully logged in
+//Page::html_page(); call this method after user get successfully logged in
 ?>

@@ -6,7 +6,10 @@ function listAllProducts(){
     $items = ProductMapper::getProducts();
 
     //Show form item List
-    Page::AllProductsList($items);
+    Page::header(); 
+    Page::html_page($items);
+    Page::footer(); 
+ 
 }
 
 function listAccountProducts(){
