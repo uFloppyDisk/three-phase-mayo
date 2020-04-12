@@ -17,7 +17,7 @@ CREATE TABLE IF NOT EXISTS merchants (
 
     global_discount FLOAT(3, 3) DEFAULT NULL,
 
-    shipping_country VARCHAR(3) NOT NULL,
+    shipping_country VARCHAR(3) NOT NULL, /* Country Codes (ISO 3166 Alpha-3) */
 
     FOREIGN KEY (shipping_country) REFERENCES iso_countrycodes(alpha3)
 );
