@@ -22,7 +22,7 @@ require_once("inc/managers/Product.manager.php");
 
 require_once("inc/html/Page.class.php");
 require_once("inc/html/AccountUtility.class.php");
-
+require_once("inc/html/PageProduct.class.php");
 
 
 require_once("inc/html/Page.class.php");
@@ -169,7 +169,11 @@ switch ($action){
         }
         break;
     case ACTION_SHOW_SELECTED_PRODUCT;
-        Page::html_product_page();// show product page in which item can be added to the order.
+    // show product page in which item can be added to the order.
+    if ( isset($_GET['prodId'])) {
+        $prodId = $_GET['prodId'];
+        PageProduct::product_html($prodId);
+        }
         break;
     case ACTION_LIST_PRODUCTS;
         default: // List All Items on the Main Page.
