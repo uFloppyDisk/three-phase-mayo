@@ -244,7 +244,7 @@ public static function html_page()
   </div>
                 </div>
                 <div class="carousel-item">
-                <img class="d-block img-fluid" src="./res/images/nikeshoes.jpg" alt="Second slide">
+                <img class="d-block img-fluid" src="./res/images/imagenumber2.jpg" alt="Second slide">
                 <div class="carousel-caption d-none d-md-block">
     <h5>Shop Nike Men's Shoes'</h5>
     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
@@ -269,7 +269,7 @@ public static function html_page()
 
             <div class="col-lg-4 col-md-6 mb-4">
                 <div class="card h-100">
-                <a href="#"><img class="card-img-top" src="./res/images/productimages/carrotsP.jpg" alt=""></a>
+                <a href="#"><img class="card-img-top" src="./res/images/imagenumber3.jpg" alt=""></a>
                 <div class="card-body">
                     <h4 class="card-title">
                     <a href="#">Organic Carrots</a>
@@ -285,7 +285,7 @@ public static function html_page()
 
             <div class="col-lg-4 col-md-6 mb-4">
                 <div class="card h-100">
-                <a href="#"><img class="card-img-top" src="./res/images/productimages/orangesP.jpg" alt=""></a>
+                <a href="#"><img class="card-img-top" src="./res/images/imagenumber4.jpg" alt=""></a>
                 <div class="card-body">
                     <h4 class="card-title">
                     <a href="#">Oranges</a>
@@ -301,7 +301,7 @@ public static function html_page()
 
             <div class="col-lg-4 col-md-6 mb-4">
                 <div class="card h-100">
-                <a href="#"><img class="card-img-top" src="./res/images/productimages/applesP.jpg" alt=""></a>
+                <a href="#"><img class="card-img-top" src="./res/images/imagenumber5.jpg" alt=""></a>
                 <div class="card-body">
                     <h4 class="card-title">
                     <a href="#">Gala Apples</a>
@@ -317,7 +317,7 @@ public static function html_page()
 
             <div class="col-lg-4 col-md-6 mb-4">
                 <div class="card h-100">
-                <a href="#"><img class="card-img-top" src="./res/images/productimages/tablelampP.jpg" alt=""></a>
+                <a href="#"><img class="card-img-top" src="./res/images/imagenumber6.jpg" alt=""></a>
                 <div class="card-body">
                     <h4 class="card-title">
                     <a href="#">Table Lamp</a>
@@ -333,7 +333,7 @@ public static function html_page()
 
             <div class="col-lg-4 col-md-6 mb-4">
                 <div class="card h-100">
-                <a href="#"><img class="card-img-top" src="./res/images/productimages/toiletpaperP.jpg" alt=""></a>
+                <a href="#"><img class="card-img-top" src="./res/images/imagenumber7.jpg" alt=""></a>
                 <div class="card-body">
                     <h4 class="card-title">
                     <a href="#">One Toilet Paper Roll</a>
@@ -349,7 +349,7 @@ public static function html_page()
 
             <div class="col-lg-4 col-md-6 mb-4">
                 <div class="card h-100">
-                <a href="#"><img class="card-img-top" src="./res/images/productimages/bedframeP.jpg" alt=""></a>
+                <a href="#"><img class="card-img-top" src="./res/images/imagenumber8.jpg" alt=""></a>
                 <div class="card-body">
                     <h4 class="card-title">
                     <a href="#">Ikea Bed Frame</a>
