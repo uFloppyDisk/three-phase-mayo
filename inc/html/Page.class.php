@@ -237,7 +237,7 @@ public static function html_page()
             </ol>
             <div class="carousel-inner" role="listbox">
                 <div class="carousel-item active">
-                <img class="d-block img-fluid" src="./res/images/macbookpro.jpg" alt="First slide">
+                <img class="d-block img-fluid" src="./res/images/imagenumber1.jpg" alt="First slide">
                 <div class="carousel-caption d-none d-md-block">
     <h5>Macbook Pro 15' '</h5>
     <p>Shop this spring event sale on selected Macbook Pro model's</p>
