@@ -4,3 +4,4 @@ VALUES
     ("Crapple Inc.", "USA"),            
     ("Nick, Inc.", "USA"),
     ("Qucci", "ITA");
+    
