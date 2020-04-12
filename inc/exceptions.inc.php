@@ -15,7 +15,7 @@ class DatabaseValueException extends DatabaseException {
     }
 }
 
-class JSONException extends RuntimeException { }
+//class JSONException extends RuntimeException { }
 class JSONReadException extends JSONException {
     public static function fieldDoesNotExist($field, $code = 0, Exception $previous = NULL) {
         $msg = sprintf(
