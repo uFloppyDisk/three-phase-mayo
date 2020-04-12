@@ -20,8 +20,10 @@ define("ACTION_EDIT_ACCOUNT", "EditAccount");
 define("ACTION_DELETE_ACCOUNT", "DeleteAccount");
 define("ACTION_INSERT_ACCOUNT", "InsertAccount");
 define("ACTION_UPDATE_ACCOUNT", "UpdateAccount");
-define("ACTION_lOGIN_ACCOUNT", "LoginAccount");
-define("ACTION_SHOW_lOGIN", "ShowLogin");
+define("ACTION_SIGIN_ACCOUNT", "SignInAccount");
+define("ACTION_SIGNUP_ACCOUNT","SignUpAccount");
+define("ACTION_SHOW_SIGNIN", "ShowSignIn");
+define("ACTION_SIGN_OUT","SignOut");
 
 // these actions will only be used if we set an admin page
 // to include new products into the database
@@ -32,6 +34,7 @@ define("ACTION_EDIT_PRODUCT", "EditProduct");
 define("ACTION_UPDATE_PRODUCT", "UpdateProduct");
 define("ACTION_NEW_PRODUCT", "NewProduct");
 define("ACTION_SEARCH_PRODUCT", "SearchProduct");
+define("ACTION_SHOW_SELECTED_PRODUCT", "ShowSelectedProduct");
 
 //These Actions are per Shopping Cart, and Per Account
 define("ACTION_LIST_ORDERS", "ListOrders");
