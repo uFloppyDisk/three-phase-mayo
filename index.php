@@ -6,7 +6,7 @@ require_once("inc/classes/Account.class.php");
 require_once("inc/classes/ISOCode.class.php");
 require_once("inc/classes/Merchant.class.php");
 require_once("inc/classes/Order.class.php");
-require_once("inc/classes/Product.class.php");
+ require_once("inc/classes/Product.class.php");
 
 require_once("inc/wrappers/Account.wrapper.php");
 require_once("inc/wrappers/ISOCode.wrapper.php");

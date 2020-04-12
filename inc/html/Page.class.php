@@ -178,7 +178,7 @@ public static function html_page()
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
         <div class="container">
-        <a class="navbar-brand" href="#">Start Bootstrap</a>
+        <a class="navbar-brand" href="#"><img src="./res/images/cexchange.png" /></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -201,14 +201,8 @@ public static function html_page()
             <li class="nav-item">
                 <form method="POST" action="#">
                     <input type="hidden" id="action" name="action" value="<?php echo ACTION_SHOW_lOGIN;?>">
-                    <div class="dropdown">
-  <button  type="submit" id="signbtn" value="Sign in/Register" class="dropbtn">Dropdown</button>
-  <div class="dropdown-content">
-    <a href="#">Link 1</a>
-    <a href="#">Link 2</a>
-    <a href="#">Link 3</a>
-  </div>
-</div>
+                    <input  type="submit" id="signbtn" value="Sign in/Register"/>
+                    
                 </form>
             </li>
             </ul>
