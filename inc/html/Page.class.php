@@ -103,21 +103,21 @@ class Page
                 <div class="carousel-inner" role="listbox">
                     <div class="carousel-item active">
                     <a href="<?php echo $_SERVER['PHP_SELF'].'?action='.ACTION_SHOW_SELECTED_PRODUCT.'&prodId='.$productArray[0]->getID();?>">
-                            <img class="d-block w-100" src="./res/images/imagenumber<?php echo $productArray[0]->getID();?>.jpg" alt="Imagenumber<?php echo $productArray[0]->getID();?>">
+                            <img class="d-block w-100" src="./res/images/<?php echo $productArray[0]->getID();?>/main.jpg" alt="Imagenumber<?php echo $productArray[0]->getID();?>">
                         </a>
                         <div class="carousel-caption d-none d-md-block">
                             <h5><?php echo $productArray[0]->getName(); ?></h5>
-                            <p><?php echo '$product->getDescription()'; ?></p>
+                            <p><?php echo $productArray[0]->getDescription(); ?></p>
                         </div>
                     </div>
                     <?php for($i=1; $i<count($productArray); $i++){?>
                         <div class="carousel-item">
                         <a href="<?php echo $_SERVER['PHP_SELF'].'?action='.ACTION_SHOW_SELECTED_PRODUCT.'&prodId='.$productArray[$i]->getID();?>">
-                            <img class="d-block w-100" src="./res/images/imagenumber<?php echo $productArray[$i]->getID();?>.jpg" alt="Imagenumber<?php echo $productArray[$i]->getID();?>">
+                            <img class="d-block w-100" src="./res/images/<?php echo $productArray[$i]->getID();?>/main.jpg" alt="Imagenumber<?php echo $productArray[$i]->getID();?>">
                         </a>
                         <div class="carousel-caption d-none d-md-block">
                             <h5><?php echo $productArray[$i]->getName(); ?></h5>
-                            <p><?php echo '$productArray[$i]->getDescription()'; ?></p>
+                            <p><?php echo $productArray[$i]->getDescription(); ?></p>
                         </div>
                         </div>
                     <?php } ?>
@@ -138,14 +138,14 @@ class Page
                     <div class="col-lg-4 col-md-6 mb-4">
                         <div class="card h-100">
                         <a href="<?php echo $_SERVER['PHP_SELF'].'?action='.ACTION_SHOW_SELECTED_PRODUCT.'&prodId='.$product->getID();?>">
-                            <img class="card-img-top" src="./res/images/imagenumber<?php echo $product->getID();?>.jpg" alt="Imagenumber<?php echo $product->getID();?>">
+                            <img class="card-img-top" src="./res/images/<?php echo $product->getID();?>/main.jpg" alt="Imagenumber<?php echo $product->getID();?>">
                         </a>
                         <div class="card-body">
                             <h4 class="card-title">
                             <a href="<?php echo $_SERVER['PHP_SELF'].'?action='.ACTION_SHOW_SELECTED_PRODUCT.'&prodId='.$product->getID();?>"><?php echo $product->getName(); ?></a>
                             </h4>
-                            <h5><?php echo $product->getPrice(); ?></h5>
-                            <p class="card-text"><?php echo '$product->getDescription()'; ?></p>
+                            <h5>$<?php echo $product->getPrice(); ?></h5>
+                            <p class="card-text"><?php echo $product->getDescription(); ?></p>
                         </div>
                         <div class="card-footer">
                             <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>

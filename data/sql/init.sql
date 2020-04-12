@@ -17,7 +17,9 @@ CREATE TABLE IF NOT EXISTS merchants (
 
     global_discount FLOAT(3, 3) DEFAULT NULL,
 
-    shipping_country VARCHAR(3) NOT NULL /* Country Codes (ISO 3166 Alpha-3) */
+    shipping_country VARCHAR(3) NOT NULL,
+
+    FOREIGN KEY (shipping_country) REFERENCES iso_countrycodes(alpha3)
 );
 
 CREATE TABLE IF NOT EXISTS accounts (
@@ -49,13 +51,11 @@ CREATE TABLE IF NOT EXISTS products (
 
     name TINYTEXT NOT NULL,
     description TEXT NOT NULL,
- 
- 	resources TINYTEXT GENERATED ALWAYS AS (CONCAT("./res/images/", id, "/")) STORED NOT NULL,
-    
-	units_available INT NOT NULL DEFAULT 0,
+
+    units_available INT NOT NULL DEFAULT 0,
     unit_weight FLOAT(3, 1),
-	
-	unit_price FLOAT(6, 2) NOT NULL,
+
+    unit_price FLOAT(6, 2) NOT NULL,
     unit_discount FLOAT(3, 3) DEFAULT NULL,
 
     shipping_method_highest TINYINT UNSIGNED DEFAULT NULL,

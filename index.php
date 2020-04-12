@@ -28,6 +28,9 @@ require_once("inc/html/PageProduct.class.php");
 require_once("inc/html/Page.class.php");
 //Initialize the DAOs, which controls CRUD operations in Database
 AccountMapper::initialize();
+ISOCodeMapper::initialize();
+MerchantMapper::initialize();
+OrderMapper::initialize();
 ProductMapper::initialize();
 
 
@@ -105,16 +108,15 @@ switch ($action){
         
     case ACTION_SIGIN_ACCOUNT;
   
-        if ( isset( $_POST['username'] ) && isset( $_POST['password'] ) ) {
+        if (isset( $_POST['username'] ) && isset( $_POST['password'] ) ) {
     
             $authUser = AccountMapper::getAccountByUsername($_POST['username']);
             //Check the DAO returned an object of type user
         
             if ($authUser instanceof Account){ 
                 //Check the password
-               
+                
                 if ($authUser->verifyPassword($_POST['password']))  {
-
                     //Start the session
                     session_start();
                     //Set the user to logged in
@@ -123,7 +125,7 @@ switch ($action){
                     $lastActionStatus = LAST_ACTION_OK;
                     listAllProducts();
                     
-                }else {
+                } else {
                     $lastActionStatus = LAST_ACTION_NOK;
                     Page::showLastActionStatus($lastActionStatus);
                     showSignInPage();
@@ -143,14 +145,13 @@ switch ($action){
     
 
     case ACTION_SIGN_OUT;
-         session_start();
-         session_destroy();
-         header("Location: index.php");
-        break;
+            session_start();
+            session_destroy();
+            header("Location: index.php");
+    break;
         
     case ACTION_SIGNUP_ACCOUNT;
-    
-        if ( isset($_POST['username']) && isset($_POST['password']) && isset($_POST['email'])) {
+        if (isset($_POST['username']) && isset($_POST['password']) && isset($_POST['email'])) {
             //Insert new account
                 // if (insertAccount()){
                 //     $lastActionStatus = LAST_ACTION_OK;
@@ -169,12 +170,13 @@ switch ($action){
         }
         break;
     case ACTION_SHOW_SELECTED_PRODUCT;
-    // show product page in which item can be added to the order.
-    if ( isset($_GET['prodId'])) {
-        $prodId = $_GET['prodId'];
-        PageProduct::product_html($prodId);
+        // show product page in which item can be added to the order.
+        if (isset($_GET['prodId'])) {
+            $prodId = $_GET['prodId'];
+            PageProduct::header();
+            PageProduct::product_html($prodId);
         }
-        break;
+    break;
     case ACTION_LIST_PRODUCTS;
         default: // List All Items on the Main Page.
             listAllProducts();
@@ -187,5 +189,5 @@ $lastActionStatus = NO_LAST_ACTION;
 //Page::footer();
 
 
- //Page::html_page(); call this method after user get successfully logged in
+//Page::html_page(); call this method after user get successfully logged in
 ?>

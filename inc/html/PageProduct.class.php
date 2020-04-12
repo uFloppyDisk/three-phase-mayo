@@ -61,44 +61,46 @@ class PageProduct
     {
         $product = new Product();
         $product = ProductMapper::getProductByID($prodId);
+
+        $merchant = new Merchant();
+        $merchant = MerchantMapper::getMerchantByID($product->getMerchantId());
         ?>
     
 
-        <body>
-        
-        <div class="container">
+            <body>    
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-5">
+                        <img src="./res/images/<?php echo $prodId;?>/main.jpg" alt="Product #<?php echo $prodId;?>" class="img-thumbnail" class="rounded float-left" >
+                        </div>
+                        <div class="col-md-7">
+                            <p class="product text-center">New </p>
+                            <h2 name="name"><?php echo $product->getName(); ?></h2>
+                            <span class="fa fa-star checked"></span>
+                            <span class="fa fa-star checked"></span>
+                            <span class="fa fa-star checked"></span>
+                            <span class="fa fa-star checked"></span>
+                            <span class="fa fa-star"></span>
 
-        <div class="row">
-        <div class="col-md-5">
-        <img src="./res/images/imagenumber<?php echo $prodId;?>.jpg" alt="Imagenumber<?php echo $prodId;?>" class="img-thumbnail" class="rounded float-left" >
-        </div>
-        <div class="col-md-7">
-        <p class="product text-center">New </p>
-        <h2 name="name"> <?php echo $product->getName(); ?> </h2><span class="fa fa-star checked"></span>
-        <span class="fa fa-star checked"></span>
-        <span class="fa fa-star checked"></span>
-        <span class="fa fa-star checked"></span>
-        <span class="fa fa-star"></span>
-        <p name="upc"><?php echo $product->getUPC(); ?> </p>
-        <p name="merchantid"><?php echo $product->getMerchantID(); ?> </p>
-        <div class="float-right">
+                            <div class="">
+                                <p name="description"><?php echo $product->getDescription(); ?></p>
+                            </div>
 
-            <p name="description"><?php echo '$product->getDescription()'; ?></p>
-        </div>
+                            <p name="upc"><?php echo $product->getUPC(); ?> </p>
+                            <span>Shipped by: </span><h6><span name="merchantid"><?php echo $merchant->getName(); ?></span></h6>
 
-        <p name="unitprice" class="price"><?php echo $product->getPrice(); ?></p>
-        <p name="unitavailable"><b>In Stock</b></p>
-        <div>
+                            <h4><p name="unitprice clearfix" class="price">$<?php echo $product->getPrice(); ?></p></h4>
+                            <p name="unitavailable"><b>In Stock</b></p>
+                            <div>
+                                <input  type="text" name="quantity" id="quantity"  class="text-center" placeholder="Quantity">
+                                <input class="btn btn-primary float-right" type="submit"  value="Add to the cart">
+                                <input type="hidden" id="action" name="action" value="<?php echo ACTION_ADDTO_ORDER;?>">
+                            </div>
 
-            <input  type="text" name="quantity" id="quantity"  class="text-center" placeholder="Quantity">
-            <input class="btn btn-primary float-right" type="submit"  value="Add to the cart">
-            <input type="hidden" id="action" name="action" value="<?php echo ACTION_ADDTO_ORDER;?>">
-        </div>
-
-        </div>
-        </div>
-        </div>
-        </body>
+                        </div>
+                    </div>
+                </div>
+            </body>
         </html>
     <?php }
 }
