@@ -8,7 +8,7 @@
 
     public static function checkout_html()
     {?>
-    <!doctype html>
+   <!doctype html>
 
 <!-- This page is inspired by bootstrap check page: https://getbootstrap.com/docs/4.3/examples/checkout/-->>
 <!-- Order Details container: https://www.tutorialrepublic.com/snippets/preview.php?topic=bootstrap&file=crud-data-table-for-database-with-modal-form-->>
@@ -28,9 +28,41 @@
   <body>
     <body class="float-center" class="bg-light">
         <div class="container ">
+
+
+        <table class="table">
+            <h2 >Order Details</h2>
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">ID</th>
+      <th scope="col">AccountID</th>
+      <th scope="col">Products Name</th>
+      <th scope="col">Status</th>
+      <th scope="col">Quatity </th>
+      <th scope="col">Edit </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th scope="row">1</th>
+      <td>Mark123</td>
+      <td>Nike Shoes</td>
+      <td class="text-success">Delivered</td>
+        <td>1</td>
+       <td><a href="">X</a></td> 
+        <!-- <?php  echo '<TD><A HREF="'.$_SERVER["PHP_SELF"].'?action=delete&id='.$customer->getCustomerID().'">Edit</A></TD>';
+        echo '</TR>';?> -->
+    </tr>
+
+  </tbody>
+</table>
+
+
+
+
       <div class="py-5 text-center">
         <img class="d-block mx-auto mb-4" src="/docs/4.3/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72">
-        <h2 >Checkout</h2>
+  <hr class="style5">      <h2 >Checkout</h2>
            </div>
     
       <div class="row ">
