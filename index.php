@@ -152,21 +152,22 @@ switch ($action){
         
     case ACTION_SIGNUP_ACCOUNT;
         if (isset($_POST['username']) && isset($_POST['password']) && isset($_POST['email'])) {
-            //Insert new account
-                // if (insertAccount()){
-                //     $lastActionStatus = LAST_ACTION_OK;
-                                   
-                // } else {
-                //     $lastActionStatus = LAST_ACTION_NOK;
-        
-                // }
-                // //Show last action status
-                // Page::showLastActionStatus($lastActionStatus);
-           
-            $action = ACTION_SIGIN_ACCOUNT;
-            
-            VerifySignIn::verifyLogin();
-            listAllProducts();
+            try {
+                AccountMapper::makeAccount($_POST['username'], $_POST['email'], $_POST['password']);
+
+                $lastActionStatus = LAST_ACTION_OK;
+                //Start the session
+                session_start();
+                //Set the user to logged in
+                $_SESSION['username'] = $_POST["username"];
+                //Send the user to the Main Page Or Shopping Page.
+                listAllProducts();
+
+            } catch (DatabaseValueException $ex) {
+                $lastActionStatus = LAST_ACTION_NOK;
+                Page::showLastActionStatus($lastActionStatus);
+                showSignInPage();
+            }
         }
         break;
     case ACTION_SHOW_SELECTED_PRODUCT;
@@ -179,15 +180,12 @@ switch ($action){
     break;
     case ACTION_LIST_PRODUCTS;
         default: // List All Items on the Main Page.
+            session_start();
             listAllProducts();
         break;
     }
     
 $lastActionStatus = NO_LAST_ACTION;
 
-//Page footer
-//Page::footer();
 
-
-//Page::html_page(); call this method after user get successfully logged in
 ?>
