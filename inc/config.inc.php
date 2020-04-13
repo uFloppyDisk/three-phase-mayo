@@ -41,6 +41,7 @@ define("ACTION_LIST_ORDERS", "ListOrders");
 define("ACTION_INSERT_ORDER", "InsertOrder");
 define("ACTION_DELETE_ORDER", "DeleteOrder");
 define("ACTION_SEARCH_ORDER", "SearchOrder");
+define("ACTION_ADDTO_ORDER","AddToOrder");
 
 //Action Status used to Determine If an ACTION was
 //Succesfully Performed or not.
