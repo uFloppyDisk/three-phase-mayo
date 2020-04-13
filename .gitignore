@@ -11,3 +11,6 @@ test*
 # Mockdata artefacts and python data preparation files
 *.csv
 *.py
+res/images/google-api-php-client-2.4.1.zip
+inc/html/googleconfig.php
+res/images/google-api-php-client-2.4.1.zip
