@@ -36,10 +36,12 @@ ProductMapper::initialize();
 
 //Get data from Currency WebService
 Page::$currencyRates = array();
+PageProduct::$currencyRates = array();
 foreach(CURRENCIES as $curr){
     CurrencyWebService::$currency = $curr;
     //Rates to be used on Page, Will Be store on $currencyRates[] by $curr key.
     Page::$currencyRates[$curr] = CurrencyWebService::getExchangeRate();
+    PageProduct::$currencyRates[$curr] = CurrencyWebService::getExchangeRate();
     
 }
 
@@ -104,6 +106,10 @@ switch ($action){
 
     case ACTION_DELETE_ORDER;
      
+        break;
+        
+    case ACTION_ADDTO_ORDER;
+        
         break; 
         
     case ACTION_SIGIN_ACCOUNT;
@@ -174,6 +180,7 @@ switch ($action){
         // show product page in which item can be added to the order.
         if (isset($_GET['prodId'])) {
             $prodId = $_GET['prodId'];
+            session_start();
             PageProduct::header();
             PageProduct::product_html($prodId);
         }

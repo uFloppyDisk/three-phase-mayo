@@ -35,12 +35,13 @@ class Page
     //show Main Page with products from database.
     public static function html_page($productArray) {?>
         
-        <body>
+     <body>
 
         <!-- Navigation -->
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
             <div class="container">
-            <!-- <a class="navbar-brand" href="#">Country<img src="./res/images/cexchange.png" /></a> -->
+            <h3><a class="text-white">Three Phase Mayo</a></h3>
+            
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -83,14 +84,14 @@ class Page
             </div>
             </div>
         </nav>
-
+        <!-- End of Nav -->
         <!-- Page Content -->
         <div class="container">
 
             <div class="row">
-            <h1 class="my-4">Three Phase Mayo</h1>            
+            <h1 class="my-4"></h1>            
 
-            <div class="col-lg-9">
+            <div class="col-lg-12">
 
                 <div id="carouselExampleIndicators" class="carousel slide my-4" data-ride="carousel">
        
