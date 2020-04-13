@@ -133,7 +133,7 @@ class ProductMapper {
             }
         }
 
-        return self::$db->rowCount();
+        return self::$db->getRowCount();
     }
 
     // Delete product by ID
@@ -149,7 +149,7 @@ class ProductMapper {
 
         self::$db->execute();
 
-        return self::$db->rowCount();
+        return self::$db->getRowCount();
     }
 }
 

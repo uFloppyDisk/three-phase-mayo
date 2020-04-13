@@ -94,7 +94,7 @@ class MerchantMapper {
             }
         }
 
-        return self::$db->rowCount();
+        return self::$db->getRowCount();
     }
 
     // Delete merchant by ID
@@ -110,7 +110,7 @@ class MerchantMapper {
 
         self::$db->execute();
 
-        return self::$db->rowCount();
+        return self::$db->getRowCount();
     }
 }
 

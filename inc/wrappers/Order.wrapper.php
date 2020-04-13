@@ -11,7 +11,7 @@ class OrderMapper {
     }
 
     // Create an order
-    static private function _createOrder(Order $order) {
+    static private function _createOrder(int $id, JSON $products_ordered, JSON $addressing, string $status) {
         $sql = "INSERT INTO orders
                     (account_id, products_ordered, addressing, status)
                 VALUES 
@@ -36,7 +36,7 @@ class OrderMapper {
     }
 
     // Update order
-    static private function _updateOrder(Order $order, int $id) {
+    static private function _updateOrder(int $id, JSON $products_ordered, JSON $addressing, string $status) {
         $sql = "UPDATE orders
                 SET
                     products_ordered = :products,
@@ -48,9 +48,9 @@ class OrderMapper {
 
         self::$db->query($sql);
 
-        self::$db->bind(":products", $order->getProductsOrdered());
-        self::$db->bind(":addressing", $order->getAddressing());
-        self::$db->bind(":status", "Payment Processing");
+        self::$db->bind(":products", $products_ordered);
+        self::$db->bind(":addressing", $addressing);
+        self::$db->bind(":status", $status);
 
         self::$db->bind(":id", $id);
 
@@ -62,18 +62,40 @@ class OrderMapper {
             }
         }
 
-        return self::$db->rowCount();
+        return self::$db->getRowCount();
     }
 
-    static function makeOrder($account_id, $products_ordered, $addressing) {
-        $order = new Order();
+    static function makeOrder(int $account_id, JSON $products_ordered, JSON $addressing, string $status=NULL) {
+        if (!AccountMapper::getAccountByID($account_id)) {
+            throw DatabaseRecordException::recordNotExists(array("id", $account_id));
+        }
 
-        $order->setAccountID($account_id);
-        $order->setProductsOrdered($products_ordered);
-        $order->setAddressing($addressing);
-        $order->setStatus($status);
+        if (!array_key_exists("shipping", $addressing)) {
+            throw new IllegalInputException;
+        }
+        
+        if (is_null($status)) {
+            $status = "Payment Processing";
+        }
 
-        self::_createOrder($order);
+        $ret = self::_createOrder($account_id, $products_ordered, $addressing, $status);
+        
+        return $ret;
+    }
+
+    // Update order info if possible
+    static function changeOrder(int $id, JSON $products_ordered, JSON $addressing, string $status=NULL) {
+        if (!array_key_exists("shipping", $addressing)) {
+            throw new IllegalInputException;
+        }
+        
+        if (is_null($status)) {
+            $status = "Payment Processing";
+        }
+
+        $ret = self::_updateOrder($id, $products_ordered, $addressing, $status);
+
+        return $ret;
     }
 
     // Get a single order by ID
@@ -114,18 +136,6 @@ class OrderMapper {
         return self::$db->getResults();
     }
 
-    // Update order info if possible
-    static function updateOrder(int $id, JSON $products_ordered, JSON $addressing) {
-        $order = new Order();
-
-        $order->setProductsOrdered($products_ordered);
-        $order->setAddressing($addressing);
-        
-        $ret = self::_updateOrder($order, $id);
-
-        return $ret;
-    }
-
     // Delete order by ID
     static function deleteOrder(int $ID) {
         $sql = "DELETE FROM 
@@ -139,7 +149,7 @@ class OrderMapper {
 
         self::$db->execute();
 
-        return self::$db->rowCount();
+        return self::$db->getRowCount();
     }
 }
 
