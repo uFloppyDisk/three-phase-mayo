@@ -71,6 +71,8 @@ class AccountMapper {
         $hashed_password = password_hash($password, PASSWORD_DEFAULT);
 
         $ret = self::_createAccount($username, $email, $hashed_password);
+
+        return true;
     }
 
     // Get a single account by ID
