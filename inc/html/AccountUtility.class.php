@@ -1,4 +1,6 @@
 <?php
+
+
 /**
  * Orignal idea of Florin POP: 
  * 
@@ -11,10 +13,13 @@ class AccountUtility {
         <html lang="en">
             <head>
                 <meta charset="utf-8">
-                <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+         
                 <script src="https://kit.fontawesome.com/0ef31ce130.js" crossorigin="anonymous"></script>
-
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+<meta name="google-signin-client_id" content="892591699744-bge3r6op06k1brb81ao3ja5jnmlgkd36.apps.googleusercontent.com">
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
                 <link href="inc/css/accountpage.css" rel="stylesheet">
+                             
                 <title>Login Page</title>
 
                 <script>
@@ -33,6 +38,22 @@ class AccountUtility {
                             container.classList.remove('right-panel-active');
                         });
                     }
+                    function onSignIn(googleUser) {
+        // Useful data for your client-side scripts:
+        var profile = googleUser.getBasicProfile();
+        console.log('User is '+googleUser.getBasicProfile());
+        console.log("ID: " + profile.getId()); // Don't send this directly to your server!
+        console.log('Full Name: ' + profile.getName());
+        console.log('Given Name: ' + profile.getGivenName());
+        console.log('Family Name: ' + profile.getFamilyName());
+        console.log("Image URL: " + profile.getImageUrl());
+        console.log("Email: " + profile.getEmail());
+
+        // The ID token you need to pass to your backend:
+        var id_token = googleUser.getAuthResponse().id_token;
+        console.log("ID Token: " + id_token);
+      }
+     
                 </script>
             </head>
             <body>
@@ -59,19 +80,26 @@ class AccountUtility {
 
                     </form>
                     </div>
-                    <div class="form-container sign-in-container">
-                        <form action='<?php echo $_SERVER["PHP_SELF"];?>' method="POST">
-                            <h1>Sign in</h1>
-                            <div class="social-container">                        
-                                <a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
-                            </div>
-                            <span>or use your account</span>
-                            <input type="text" name="username" placeholder="User Name" />
-                            <input type="password" name="password" placeholder="Password" />
-                            <input type="hidden" id="action" name="action" value="<?php echo ACTION_SIGIN_ACCOUNT;?>">
-                            <button>Sign In</button> 
-                        </form>
-                    </div>
+        <div class="form-container sign-in-container">
+        <form action='<?php echo $_SERVER["PHP_SELF"];?>' method="POST">
+        <h1>Sign in</h1>
+        <div class="social-container">      
+
+
+        <div class="g-signin2" data-onsuccess="onSignIn" data-theme="dark">
+        </div>
+  <!-- <input type="submit" value="Sign in with Google" class="btn btn-danger"> -->
+
+
+
+        </div>
+        <span>or use your account</span>
+        <input type="text" name="username" placeholder="User Name" />
+        <input type="password" name="password" placeholder="Password" />
+        <input type="hidden" id="action" name="action" value="<?php echo ACTION_SIGIN_ACCOUNT;?>">
+        <button>Sign In</button> 
+        </form>
+        </div>
 
                     <div class="overlay-container">
                         <div class="overlay">
@@ -83,7 +111,7 @@ class AccountUtility {
                                 <button class="ghost" id="signIn">Sign In</button>
                             </div>
                             <div class="overlay-panel overlay-right">
-                                <h1>Hello, Friend!</h1>
+                                <h1>Welcome</h1>
                                 <p>Enter your personal details and start journey with us</p>
                                 <button class="ghost" id="signUp">Sign Up</button>
                             </div>
