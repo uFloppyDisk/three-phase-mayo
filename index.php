@@ -179,15 +179,12 @@ switch ($action){
     break;
     case ACTION_LIST_PRODUCTS;
         default: // List All Items on the Main Page.
+            session_start();
             listAllProducts();
         break;
     }
     
 $lastActionStatus = NO_LAST_ACTION;
 
-//Page footer
-//Page::footer();
 
-
-//Page::html_page(); call this method after user get successfully logged in
 ?>

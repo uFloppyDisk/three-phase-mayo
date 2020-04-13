@@ -49,31 +49,36 @@ class Page
                 <?php 
                 
                 if(!empty($_SESSION['username'])){?>
-                <li class="nav-item">
-                    <a class="nav-link"><?php echo "Hello ".$_SESSION['username'] ?></a>
-                </li>
-                <?php } ?>
-                <li class="nav-item active">
-                    <a class="nav-link" href="#">Home
-                    <span class="sr-only">(current)</span>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">About</a>
-                </li>
-                
-                <li class="nav-item">
+                    <li class="nav-item">
+                        <a class="nav-link"><?php echo "Hello ".$_SESSION['username'] ?></a>
+                    </li>
+                    <li class="nav-item">
+                        <form method="GET" action="<?php echo $_SERVER["PHP_SELF"]; ?>">
+                            <input type="hidden" id="action" name="action" value="<?php echo ACTION_SIGN_OUT;?>">
+                            <input type="submit" id="signoutbtn" class="btn btn-secondary" value="Sign Out"/>
+                        </form>
+                    </li>
+                    <?php } 
+                else { ?>
+                    <li class="nav-item">
                     <form method="GET" action="<?php echo $_SERVER["PHP_SELF"]; ?>">
                         <input type="hidden" id="action" name="action" value="<?php echo ACTION_SHOW_SIGNIN;?>">
                         <input type="submit" id="signbtn" class="btn btn-primary" value="Sign in/Register"/>
                     </form>
-                </li>
-                <li class="nav-item">
-                    <form method="GET" action="<?php echo $_SERVER["PHP_SELF"]; ?>">
-                        <input type="hidden" id="action" name="action" value="<?php echo ACTION_SIGN_OUT;?>">
-                        <input type="submit" id="signoutbtn" class="btn btn-secondary" value="Sign Out"/>
-                    </form>
-                </li>
+                    </li>
+                <?php } ?>
+                    <li>
+                        <div class="dropdown">
+                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Select Currency
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <?php foreach(self::$currencyRates as $key=>$value){?>
+                            <a class="dropdown-item" href="<?php echo $_SERVER["PHP_SELF"].'?action='.ACTION_LIST_PRODUCTS.'&price='.$key; ?>"><?php echo $key ?></a>
+                            <?php } ?>
+                            <a class="dropdown-item" href="<?php echo $_SERVER["PHP_SELF"].'?action='.ACTION_LIST_PRODUCTS.'&price=CAD'; ?>"> CAD </a>
+                        </div>
+                    </li>
                 </ul>
             </div>
             </div>
@@ -83,18 +88,7 @@ class Page
         <div class="container">
 
             <div class="row">
-
-            <div class="col-lg-3">
-
-                <h1 class="my-4">Three Phase Mayo</h1>
-                <div class="list-group">
-                <a href="#" class="list-group-item">Category 1</a>
-                <a href="#" class="list-group-item">Category 2</a>
-                <a href="#" class="list-group-item">Category 3</a>
-                </div>
-
-            </div>
-            <!-- /.col-lg-3 -->
+            <h1 class="my-4">Three Phase Mayo</h1>            
 
             <div class="col-lg-9">
 
@@ -144,7 +138,22 @@ class Page
                             <h4 class="card-title">
                             <a href="<?php echo $_SERVER['PHP_SELF'].'?action='.ACTION_SHOW_SELECTED_PRODUCT.'&prodId='.$product->getID();?>"><?php echo $product->getName(); ?></a>
                             </h4>
-                            <h5>$<?php echo $product->getPrice(); ?></h5>
+                            <h5><?php 
+                                    if(!empty($_GET["price"])){
+                                        if($_GET["price"]=="CAD"){                                         
+                                            echo 'CAD '.$product->getPrice(); 
+                                         }else{
+                                            foreach(self::$currencyRates as $key=>$value) {
+                                                if($_GET["price"]==$key){
+                                                    echo $key.' '.number_format($product->getPrice()*$value, 2, '.', ',');
+                                                }
+                                            } 
+                                         }                                           
+                                    }else{
+                                        echo 'CAD '.$product->getPrice(); 
+                                    }                               
+                                ?>
+                            </h5>
                             <p class="card-text"><?php echo $product->getDescription(); ?></p>
                         </div>
                         <div class="card-footer">
