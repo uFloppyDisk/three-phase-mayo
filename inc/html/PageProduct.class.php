@@ -2,26 +2,24 @@
 
 class PageProduct
 {
-
+    public static $currencyRates = array();
 
     public static function header(){?>
         <!DOCTYPE html>
             <html lang="en">
             <head>
-            <meta charset="UTF-8">
-            <meta name="viewport" content="width=device-width, initial-scale=1.0">
- 
-            <!-- <link href="inc/css/productpage.css" rel="stylesheet"> -->
             
-            <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
-            integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" 
-            crossorigin="anonymous">
-            
-            <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
-            <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-            <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
-            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-            <title>Product Page</title>
+            <meta charset="utf-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+            <meta name="description" content="">
+            <meta name="author" content="">
+
+            <title>3PhaseMayo Store</title>
+            <!-- Bootstrap core CSS -->
+            <link href="inc/html/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+            <!-- Custom styles for this template -->
+            <link href="inc/css/shop-homepage.css" rel="stylesheet">
             <style>
     
             .checked {
@@ -29,7 +27,8 @@ class PageProduct
             }
             .container
             {
-                margin-top: 80px;
+                margin-top: 0px;
+                
             }
             .product
             {
@@ -42,6 +41,11 @@ class PageProduct
             .col-md-7
             {
                 color: #555;
+                padding: 40px;
+            }
+            .col-md-5
+            {
+                padding: 40px;
             }
             .price
             {    font-weight: bold ;
@@ -59,17 +63,64 @@ class PageProduct
 
     public static function product_html($prodId)
     {
+        
         $product = new Product();
         $product = ProductMapper::getProductByID($prodId);
 
         $merchant = new Merchant();
         $merchant = MerchantMapper::getMerchantByID($product->getMerchantId());
         ?>
-    
-
-            <body>    
+            <body> 
+                 <!-- Navigation -->
+                <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+                    <div class="container">
+                    <h4><a class="text-white">Three Phase Mayo: Product Details</a></h4>
+                        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarResponsive">
+                        <ul class="navbar-nav ml-auto">
+                        <?php 
+                        
+                        if(!empty($_SESSION['username'])){?>
+                            <li class="nav-item">
+                                <a class="nav-link"><?php echo "Hello ".$_SESSION['username'] ?></a>
+                            </li>
+                            <li class="nav-item">
+                                <form method="GET" action="<?php echo $_SERVER["PHP_SELF"]; ?>">
+                                    <input type="hidden" id="action" name="action" value="<?php echo ACTION_SIGN_OUT;?>">
+                                    <input type="submit" id="signoutbtn" class="btn btn-secondary" value="Sign Out"/>
+                                </form>
+                            </li>
+                            <?php } 
+                        else { ?>
+                            <li class="nav-item">
+                            <form method="GET" action="<?php echo $_SERVER["PHP_SELF"]; ?>">
+                                <input type="hidden" id="action" name="action" value="<?php echo ACTION_SHOW_SIGNIN;?>">
+                                <input type="submit" id="signbtn" class="btn btn-primary" value="Sign in/Register"/>
+                            </form>
+                            </li>
+                        <?php } ?>
+                            <li>
+                                <div class="dropdown">
+                                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Select Currency
+                                </button>
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                    <?php foreach(self::$currencyRates as $key=>$value){?>
+                                    <a class="dropdown-item" href="<?php echo $_SERVER["PHP_SELF"].'?action='.ACTION_LIST_PRODUCTS.'&price='.$key; ?>"><?php echo $key ?></a>
+                                    <?php } ?>
+                                    <a class="dropdown-item" href="<?php echo $_SERVER["PHP_SELF"].'?action='.ACTION_LIST_PRODUCTS.'&price=CAD'; ?>"> CAD </a>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    </div>
+                </nav>
+                <!-- End of Nav -->
                 <div class="container">
                     <div class="row">
+                  
                         <div class="col-md-5">
                         <img src="./res/images/<?php echo $prodId;?>/main.jpg" alt="Product #<?php echo $prodId;?>" class="img-thumbnail" class="rounded float-left" >
                         </div>
