@@ -65,19 +65,6 @@ class Account {
         return $this->merchant_id;
     }
 
-    function setUsername(string $value) {
-        $this->username = $value;
-    }
-
-    function setEmail(string $value) {
-        $this->email = $value;
-    }
-
-    function setPassword(string $value) {
-        $password = password_hash($value, PASSWORD_DEFAULT);
-        $this->password = $value;
-    }
-
     function setFirstName(string $value) {
         $this->name_first = $value;
     }
