@@ -148,7 +148,7 @@ class AccountMapper {
     }
 
     // Update account username
-    static function changeUsername(Account $account) {
+    static function changeUsername(int $id, string $username) {
         $sql = "UPDATE accounts
                 SET
                     username = :username
@@ -158,8 +158,27 @@ class AccountMapper {
 
         self::$db->query($sql);
 
-        self::$db->bind(":username", $account->getUsername());
-        self::$db->bind(":id", $account->getID());
+        self::$db->bind(":username", $username);
+        self::$db->bind(":id", $id);
+
+        self::$db->execute();
+
+        return self::$db->rowCount();
+    }
+
+    // Update account email
+    static function updateEmail(int $id, string $email) {
+        $sql = "UPDATE accounts
+                SET
+                    email = :email
+                WHERE
+                    id = :id;";
+        
+
+        self::$db->query($sql);
+
+        self::$db->bind(":email", $email);
+        self::$db->bind(":id", $id);
 
         self::$db->execute();
 
@@ -167,18 +186,18 @@ class AccountMapper {
     }
 
     // Update account password
-    static function updatePassword(Account $account) {
+    static function updatePassword(int $id, string $password) {
         $sql = "UPDATE accounts
                 SET
-                    username = :username
+                    password = :password
                 WHERE
                     id = :id;";
         
 
         self::$db->query($sql);
 
-        self::$db->bind(":username", $account->getUsername());
-        self::$db->bind(":id", $account->getID());
+        self::$db->bind(":password", $password);
+        self::$db->bind(":id", $id);
 
         self::$db->execute();
 
