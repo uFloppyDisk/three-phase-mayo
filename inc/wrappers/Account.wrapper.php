@@ -31,40 +31,46 @@ class AccountMapper {
             }
         }
 
-        return $db->getLastInsertedID();
+        return self::$db->getLastInsertedID();
     }
 
     // Update account username
-    static private function _updateUsername(Account $account) {
+    static private function _updateField(int $id, string $value, string $field) {
         $sql = "UPDATE accounts
                 SET
-                    username = :username
+                    $field = :value
                 WHERE
                     id = :id;";
         
 
         self::$db->query($sql);
 
-        self::$db->bind(":username", $account->getUsername());
-        self::$db->bind(":id", $account->getID());
+        self::$db->bind(":value", $value);
+        self::$db->bind(":id", $id);
 
-        self::$db->execute();
+        try {
+            self::$db->execute();
+        } catch (PDOException $ex) {
+            if ($ex::errorInfo[0] == "42000") {
+                throw DatabaseValueException::valueExceedsBounds($ex::errorInfo[2]);
+            }
+        }
 
-        return self::$db->rowCount();
+        return self::$db->getRowCount();
     }
 
     static function makeAccount(string $username, string $email, string $password) {
-        if (!self::getAccountByEmail($email)) {
-            throw DatabaseValueException::valueNotUnique($email);
-        }
-
-        if (!self::getAccountByUsername($username)) {
+        if (self::getAccountByUsername($username)) {
             throw DatabaseValueException::valueNotUnique($username);
         }
 
-        $hash = password_hash($password, PASSWORD_DEFAULT);
+        if (self::getAccountByEmail($email)) {
+            throw DatabaseValueException::valueNotUnique($email);
+        }
 
-        $ret = self::_createAccount($username, $email, $password);
+        $hashed_password = password_hash($password, PASSWORD_DEFAULT);
+
+        $ret = self::_createAccount($username, $email, $hashed_password);
     }
 
     // Get a single account by ID
@@ -142,66 +148,40 @@ class AccountMapper {
 
         self::$db->bind(":id", $account->getID());
 
-        self::$db->execute();
+        try {
+            self::$db->execute();
+        } catch (PDOException $ex) {
+            if ($ex::errorInfo[0] == "42000") {
+                throw DatabaseValueException::valueExceedsBounds($ex::errorInfo[2]);
+            }
+        }
 
-        return self::$db->rowCount();
+        return self::$db->getRowCount();
     }
 
     // Update account username
     static function changeUsername(int $id, string $username) {
-        $sql = "UPDATE accounts
-                SET
-                    username = :username
-                WHERE
-                    id = :id;";
-        
+        if (self::getAccountByUsername($username)) {
+            throw DatabaseValueException::valueNotUnique($username);
+        }
 
-        self::$db->query($sql);
-
-        self::$db->bind(":username", $username);
-        self::$db->bind(":id", $id);
-
-        self::$db->execute();
-
-        return self::$db->rowCount();
+        return self::_updateField($id, $username, "username");
     }
 
     // Update account email
-    static function updateEmail(int $id, string $email) {
-        $sql = "UPDATE accounts
-                SET
-                    email = :email
-                WHERE
-                    id = :id;";
-        
+    static function changeEmail(int $id, string $email) {
+        if (self::getAccountByEmail($email)) {
+            throw DatabaseValueException::valueNotUnique($email);
+        }
 
-        self::$db->query($sql);
-
-        self::$db->bind(":email", $email);
-        self::$db->bind(":id", $id);
-
-        self::$db->execute();
-
-        return self::$db->rowCount();
+        return self::_updateField($id, $email, "email");
     }
 
     // Update account password
-    static function updatePassword(int $id, string $password) {
-        $sql = "UPDATE accounts
-                SET
-                    password = :password
-                WHERE
-                    id = :id;";
-        
+    static function changePassword(int $id, string $password) {
+        $hashed_password = password_hash($password, PASSWORD_DEFAULT);
 
-        self::$db->query($sql);
-
-        self::$db->bind(":password", $password);
-        self::$db->bind(":id", $id);
-
-        self::$db->execute();
-
-        return self::$db->rowCount();
+        return self::_updateField($id, $hashed_password, "password");
     }
 
     // Delete account by ID
@@ -217,7 +197,7 @@ class AccountMapper {
 
         self::$db->execute();
 
-        return self::$db->rowCount();
+        return self::$db->getRowCount();
     }
 }
 
