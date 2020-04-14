@@ -101,7 +101,7 @@ switch ($action){
             //$account->setFirstName($_POST["FirstName"]);
             //$account->setFirstName();
             //AccountSettings::updateAccountInfo($account);
-            AccountSettings::changeUsername($_POST["accId"], $_POST["Username"]);
+            AccountMapper::changeUsername($_POST["accId"], $_POST["Username"]);
     }
         break;  
 
