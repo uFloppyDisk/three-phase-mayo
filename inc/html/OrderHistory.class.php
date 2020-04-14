@@ -45,7 +45,7 @@
     <div class="table-title">
     <div class="row">
     <div class="col-sm-4">
-    <h2 > <b>Order Details</b></h2>
+    <h2 > <b>Order History</b></h2>
     </div>
     </div>
     </div>
