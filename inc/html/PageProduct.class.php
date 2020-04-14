@@ -3,7 +3,7 @@
 class PageProduct
 {
     public static $currencyRates = array();
-
+    
     public static function header(){?>
         <!DOCTYPE html>
             <html lang="en">
@@ -95,10 +95,10 @@ class PageProduct
                             <?php } 
                         else { ?>
                             <li class="nav-item">
-                            <form method="GET" action="<?php echo $_SERVER["PHP_SELF"]; ?>">
-                                <input type="hidden" id="action" name="action" value="<?php echo ACTION_SHOW_SIGNIN;?>">
-                                <input type="submit" id="signbtn" class="btn btn-primary" value="Sign in/Register"/>
-                            </form>
+                                <form method="GET" action="<?php echo $_SERVER["PHP_SELF"]; ?>">
+                                    <input type="hidden" id="action" name="action" value="<?php echo ACTION_SHOW_SIGNIN;?>">
+                                    <input type="submit" id="signbtn" class="btn btn-primary" value="Sign in/Register"/>
+                                </form>
                             </li>
                         <?php } ?>
                             <li>
@@ -108,9 +108,10 @@ class PageProduct
                                 </button>
                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                     <?php foreach(self::$currencyRates as $key=>$value){?>
-                                    <a class="dropdown-item" href="<?php echo $_SERVER["PHP_SELF"].'?action='.ACTION_LIST_PRODUCTS.'&price='.$key; ?>"><?php echo $key ?></a>
+                                    <a class="dropdown-item" href="<?php echo $_SERVER["PHP_SELF"].'?action='.ACTION_SHOW_SELECTED_PRODUCT.'&prodId='.$prodId.'&price='.$key; ?>"><?php echo $key ?></a>
                                     <?php } ?>
-                                    <a class="dropdown-item" href="<?php echo $_SERVER["PHP_SELF"].'?action='.ACTION_LIST_PRODUCTS.'&price=CAD'; ?>"> CAD </a>
+                                    <a class="dropdown-item" href="<?php echo $_SERVER["PHP_SELF"].'?action='.ACTION_SHOW_SELECTED_PRODUCT.'&prodId='.$prodId.'&price=CAD'; ?>"> CAD </a>
+                                    
                                 </div>
                             </li>
                         </ul>
@@ -140,17 +141,41 @@ class PageProduct
                             <p name="upc"><?php echo $product->getUPC(); ?> </p>
                             <span>Shipped by: </span><h6><span name="merchantid"><?php echo $merchant->getName(); ?></span></h6>
 
-                            <h4><p name="unitprice clearfix" class="price">$<?php echo $product->getPrice(); ?></p></h4>
+                            <h4><p name="unitprice clearfix" class="price">
+                                <?php 
+                                        if(!empty($_GET["price"])){
+                                            if($_GET["price"]=="CAD"){                                         
+                                                echo 'CAD '.$product->getPrice(); 
+                                            }else{
+                                                foreach(self::$currencyRates as $key=>$value) {
+                                                    if($_GET["price"]==$key){
+                                                        echo $key.' '.number_format($product->getPrice()*$value, 2, '.', ',');
+                                                    }
+                                                } 
+                                            }                                           
+                                        }else{
+                                            echo 'CAD '.$product->getPrice(); 
+                                        }                               
+                                    ?>
+                            </p></h4>
                             <p name="unitavailable"><b>In Stock</b></p>
                             <div>
-                                <input  type="text" name="quantity" id="quantity"  class="text-center" placeholder="Quantity">
-                                <input class="btn btn-primary float-right" type="submit"  value="Add to the cart">
-                                <input type="hidden" id="action" name="action" value="<?php echo ACTION_ADDTO_ORDER;?>">
+                                <form method="POST" action="<?php echo $_SERVER["PHP_SELF"]; ?>">
+                                    <input  type="text" name="quantity" id="quantity"  class="text-center" placeholder="Quantity" required>
+                                    <input type="hidden" id="prodId" name="prodId" value="<?php echo $prodId;?>">
+                                    <input type="hidden" id="discount" name="discount" value="<?php echo $product->getDiscount();?>">
+                                    
+                                    <input class="btn btn-primary float-right" type="submit"  name="action" value="<?php echo ACTION_GOTO_CHECKOUT;?>">
+                                    <input class="btn btn-primary float-right" type="submit"  name="action" value="<?php echo ACTION_ADDTO_ORDER;?>">
+                                  
+                                </form>
                             </div>
 
                         </div>
                     </div>
                 </div>
+                <script src="inc/html/vendor/jquery/jquery.min.js"></script>
+                <script src="inc/html/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
             </body>
         </html>
     <?php }

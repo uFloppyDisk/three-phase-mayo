@@ -23,6 +23,9 @@ require_once("inc/managers/Product.manager.php");
 require_once("inc/html/Page.class.php");
 require_once("inc/html/AccountUtility.class.php");
 require_once("inc/html/PageProduct.class.php");
+require_once("inc/html/OrderDetails.class.php");
+require_once("inc/html/checkout.class.php");
+require_once("inc/html/AccountSettings.class.php");
 
 
 require_once("inc/html/Page.class.php");
@@ -37,12 +40,13 @@ ProductMapper::initialize();
 //Get data from Currency WebService
 Page::$currencyRates = array();
 PageProduct::$currencyRates = array();
+OrderDetails::$currencyRates = array();
 foreach(CURRENCIES as $curr){
     CurrencyWebService::$currency = $curr;
     //Rates to be used on Page, Will Be store on $currencyRates[] by $curr key.
     Page::$currencyRates[$curr] = CurrencyWebService::getExchangeRate();
     PageProduct::$currencyRates[$curr] = CurrencyWebService::getExchangeRate();
-    
+    OrderDetails::$currencyRates[$curr] = CurrencyWebService::getExchangeRate();
 }
 
 
@@ -80,24 +84,35 @@ switch ($action){
         
         break;
     case ACTION_DELETE_ACCOUNT;
-      
+   
         break;
 
     case ACTION_EDIT_ACCOUNT;
-        
+        AccountSettings::accountsettings_html();
         break;
 
 
 
     case ACTION_UPDATE_ACCOUNT;
-      
+        if (!empty($_POST)) {
+            $account = new Account();
+            $account->setFirstName($_POST["FirstName"]);
+            $account->setLastName($_POST["LastName"]);
+            //$account->setFirstName($_POST["FirstName"]);
+            //$account->setFirstName();
+            //AccountSettings::updateAccountInfo($account);
+            AccountMapper::changeUsername($_POST["accId"], $_POST["Username"]);
+    }
         break;  
 
 
 
-    case ACTION_INSERT_ORDER;
+    case ACTION_SUBMIT_ORDER;
         //Insert new order (Shopping cart List) into the system (dataBase)
-
+        session_start();
+        var_dump($_SESSION);
+        // $_SESSION['jsonDecOrdProds']
+        //makeOrder($_SESSION["userId"], $_SESSION["jsonOrdProds"], JSON $addressing, string $status=NULL) 
         break;    
         
     case ACTION_LIST_ORDERS;
@@ -108,10 +123,58 @@ switch ($action){
      
         break;
         
-    case ACTION_ADDTO_ORDER;
-        
+    case ACTION_ADDTO_ORDER;      
+        session_start();
+      
+        if(!empty($_SESSION['username']))
+        {
+            if (isset($_POST['prodId']) && isset($_POST['quantity']) && isset( $_POST["discount"])) {
+                
+          
+                (String)$_SESSION['jsonOrdProds'] = ""; 
+                $obj = new stdClass();
+                $obj->prodId = $_POST["prodId"];
+                $obj->qty = $_POST["quantity"];
+                $obj->discount = $_POST["discount"];
+                
+                array_push ($_SESSION['OrdProds'], $obj);
+                
+                $_SESSION['jsonOrdProds'] .= json_encode($_SESSION['OrdProds']);
+                        
+                $_SESSION['jsonDecOrdProds'] = json_decode($_SESSION['jsonOrdProds'],true);
+                
+                OrderDetails::header(); 
+                OrderDetails::orderdetails_html($_SESSION['jsonDecOrdProds'] );
+            
+            }
+        }else {
+            showSignInPage();
+        }      
         break; 
-        
+
+    case ACTION_REMOVE_PRODUCT_FROM_ORDER;
+            session_start();
+            if (isset($_GET['key'])){            
+            unset($_SESSION['OrdProds'][$_GET['key']]);
+            unset($_SESSION['jsonDecOrdProds'][$_GET['key']]);
+           
+            OrderDetails::header();            
+            OrderDetails::orderdetails_html($_SESSION['jsonDecOrdProds'] );
+            } 
+            
+        break;
+    
+    case ACTION_CHANGE_CURRENCY;
+        session_start();
+        OrderDetails::header();            
+        OrderDetails::orderdetails_html($_SESSION['jsonDecOrdProds'] );
+        break;
+
+    case ACTION_GOTO_CHECKOUT;
+        session_start();
+        Checkout::billinginfo_html();
+        break;
+
     case ACTION_SIGIN_ACCOUNT;
   
         if (isset( $_POST['username'] ) && isset( $_POST['password'] ) ) {
@@ -127,6 +190,8 @@ switch ($action){
                     session_start();
                     //Set the user to logged in
                     $_SESSION['username'] = $authUser->getUsername();
+                    $_SESSION['userId'] = $authUser->getID();
+                    $_SESSION['OrdProds'] = array();
                     //Send the user to the Main Page Or Shopping Page.
                     $lastActionStatus = LAST_ACTION_OK;
                     listAllProducts();
@@ -154,7 +219,7 @@ switch ($action){
             session_start();
             session_destroy();
             header("Location: index.php");
-    break;
+        break;
         
     case ACTION_SIGNUP_ACCOUNT;
         if (isset($_POST['username']) && isset($_POST['password']) && isset($_POST['email'])) {
@@ -166,6 +231,8 @@ switch ($action){
                 session_start();
                 //Set the user to logged in
                 $_SESSION['username'] = $_POST["username"];
+                $_SESSION['userId'] = $authUser->getID();
+                $_SESSION['OrdProds'] = array();
                 //Send the user to the Main Page Or Shopping Page.
                 listAllProducts();
 
@@ -184,13 +251,22 @@ switch ($action){
             PageProduct::header();
             PageProduct::product_html($prodId);
         }
+     break;
+    
+    case ACTION_GOTO_MAIN;
+        session_start();                 
+        listAllProducts();
     break;
+
     case ACTION_LIST_PRODUCTS;
         default: // List All Items on the Main Page.
-            session_start();
+            session_start();  
+            //AccountSettings::accountsettings_html();          
             listAllProducts();
         break;
     }
+  
+    
     
 $lastActionStatus = NO_LAST_ACTION;
 

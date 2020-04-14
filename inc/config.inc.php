@@ -19,15 +19,16 @@ define("ACTION_NEW_ACCOUNT", "NewAccount");
 define("ACTION_EDIT_ACCOUNT", "EditAccount");
 define("ACTION_DELETE_ACCOUNT", "DeleteAccount");
 define("ACTION_INSERT_ACCOUNT", "InsertAccount");
-define("ACTION_UPDATE_ACCOUNT", "UpdateAccount");
+define("ACTION_UPDATE_ACCOUNT", "Update Account");
 define("ACTION_SIGIN_ACCOUNT", "SignInAccount");
 define("ACTION_SIGNUP_ACCOUNT","SignUpAccount");
 define("ACTION_SHOW_SIGNIN", "ShowSignIn");
 define("ACTION_SIGN_OUT","SignOut");
+define("ACTION_GOTO_MAIN","Go Back to Main");
 
 // these actions will only be used if we set an admin page
 // to include new products into the database
-define("ACTION_LIST_PRODUCTS", "ListProducts");
+define("ACTION_LIST_PRODUCTS", "Products List");
 define("ACTION_DELETE_PRODUCT", "DeleteProduct");
 define("ACTION_INSERT_PRODUCT", "InsertProduct");
 define("ACTION_EDIT_PRODUCT", "EditProduct");
@@ -36,13 +37,17 @@ define("ACTION_NEW_PRODUCT", "NewProduct");
 define("ACTION_SEARCH_PRODUCT", "SearchProduct");
 define("ACTION_SHOW_SELECTED_PRODUCT", "ShowSelectedProduct");
 
+
 //These Actions are per Shopping Cart, and Per Account
 define("ACTION_LIST_ORDERS", "ListOrders");
 define("ACTION_INSERT_ORDER", "InsertOrder");
 define("ACTION_DELETE_ORDER", "DeleteOrder");
 define("ACTION_SEARCH_ORDER", "SearchOrder");
 define("ACTION_ADDTO_ORDER","AddToOrder");
-
+define("ACTION_GOTO_CHECKOUT","GoToCheckout");
+define("ACTION_REMOVE_PRODUCT_FROM_ORDER", "RemoveFromOrder");
+define("ACTION_CHANGE_CURRENCY","ChangeCurrency");
+define("ACTION_SUBMIT_ORDER","SubmitOrder");
 //Action Status used to Determine If an ACTION was
 //Succesfully Performed or not.
 define("NO_LAST_ACTION", 0);
