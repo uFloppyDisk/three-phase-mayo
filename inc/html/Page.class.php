@@ -55,10 +55,18 @@ class Page
                     </li>
                     <li class="nav-item">
                         <form method="GET" action="<?php echo $_SERVER["PHP_SELF"]; ?>">
+                            <input type="hidden" id="action" name="action" value="<?php echo ACTION_EDIT_ACCOUNT;?>">
+                            <input type="hidden" id="userId" name="userId" value="<?php echo $_SESSION['userId'];?>">
+                            <input type="submit" id="signoutbtn" class="btn btn-secondary" value="Edit Account"/>
+                        </form>
+                    </li>
+                    <li class="nav-item">
+                        <form method="GET" action="<?php echo $_SERVER["PHP_SELF"]; ?>">
                             <input type="hidden" id="action" name="action" value="<?php echo ACTION_SIGN_OUT;?>">
                             <input type="submit" id="signoutbtn" class="btn btn-secondary" value="Sign Out"/>
                         </form>
                     </li>
+                   
                     <?php } 
                 else { ?>
                     <li class="nav-item">
